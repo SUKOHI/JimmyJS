@@ -577,7 +577,7 @@ let JIMMY = {
     setBackgroundImage: function(imageSource, x, y) {
 
         JIMMY.bgCanvas.style.backgroundRepeat = 'no-repeat';
-        JIMMY.bgCanvas.style.backgroundPosition = x +' '+ y;
+        JIMMY.bgCanvas.style.backgroundPosition = x +'px '+ y +'px';
         JIMMY.bgCanvas.style.backgroundImage = 'URL("'+ imageSource +'")';
         JIMMY.backgroundImage = {
             source: imageSource,
