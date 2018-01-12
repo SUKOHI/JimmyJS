@@ -1141,8 +1141,8 @@ let JIMMY = {
         let fontSize = parseInt(computedStyle.getPropertyValue('font-size'));
         JIMMY.text.scrollTop = 0;
         JIMMY.textBox.innerHTML = JIMMY.text.value.replace(/\n/g, '<br>') + "<br>";
-        JIMMY.text.style.width = JIMMY.textBox.offsetWidth + fontSize;
-        JIMMY.text.style.height = JIMMY.textBox.offsetHeight + paddingTop + paddingBottom;
+        JIMMY.text.style.width = JIMMY.textBox.offsetWidth + fontSize +'px';
+        JIMMY.text.style.height = JIMMY.textBox.offsetHeight + paddingTop + paddingBottom +'px';
 
     },
     onTextMouseUp: function() {
