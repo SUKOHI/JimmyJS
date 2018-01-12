@@ -60,12 +60,6 @@ let JIMMY = {
 
         JIMMY.bgCanvas = document.getElementById(el);
         JIMMY.bgCtx = JIMMY.bgCanvas.getContext('2d');
-        let computedStyle = window.getComputedStyle(JIMMY.bgCanvas, null);
-        let borderTopWidth = parseInt(computedStyle.getPropertyValue('border-top-width'));
-        let borderLeftWidth = parseInt(computedStyle.getPropertyValue('border-left-width'));
-        let canvasPosition = JIMMY.getCanvasPosition('bg');
-        let fgTop = borderTopWidth + parseInt(canvasPosition.y);
-        let fgLeft = borderLeftWidth + parseInt(canvasPosition.x);
 
         if(canvasSize != null) {
 
@@ -83,12 +77,11 @@ let JIMMY = {
         JIMMY.fgCanvas.addEventListener('mousemove', JIMMY.onMouseMove);
         JIMMY.fgCanvas.style.cssText = [
             'position:absolute',
-            'top:' + fgTop + 'px',
-            'left:' + fgLeft + 'px',
             'padding:0',
             'margin:0',
             'background:transparent',
         ].join(';');
+        JIMMY.alignCanvas();
         JIMMY.fgCtx = JIMMY.fgCanvas.getContext('2d');
         document.body.appendChild(JIMMY.fgCanvas);
 
@@ -1493,6 +1486,18 @@ let JIMMY = {
             JIMMY.downloadLink.click();
 
         });
+
+    },
+    alignCanvas: function() {
+
+        let computedStyle = window.getComputedStyle(JIMMY.bgCanvas, null);
+        let borderTopWidth = parseInt(computedStyle.getPropertyValue('border-top-width'));
+        let borderLeftWidth = parseInt(computedStyle.getPropertyValue('border-left-width'));
+        let canvasPosition = JIMMY.getCanvasPosition('bg');
+        let fgTop = borderTopWidth + parseInt(canvasPosition.y);
+        let fgLeft = borderLeftWidth + parseInt(canvasPosition.x);
+        JIMMY.fgCanvas.style.top = fgTop + 'px';
+        JIMMY.fgCanvas.style.left = fgLeft + 'px';
 
     }
 
