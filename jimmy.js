@@ -1561,8 +1561,8 @@ let JIMMY = {
         let borderTopWidth = parseInt(computedStyle.getPropertyValue('border-top-width'));
         let borderLeftWidth = parseInt(computedStyle.getPropertyValue('border-left-width'));
         let canvasPosition = JIMMY.getCanvasPosition('bg');
-        let fgTop = borderTopWidth + parseInt(canvasPosition.y);
-        let fgLeft = borderLeftWidth + parseInt(canvasPosition.x);
+        let fgTop = borderTopWidth + parseInt(canvasPosition.y) + window.scrollY;
+        let fgLeft = borderLeftWidth + parseInt(canvasPosition.x) + window.scrollX;
         JIMMY.fgCanvas.style.top = fgTop + 'px';
         JIMMY.fgCanvas.style.left = fgLeft + 'px';
 
