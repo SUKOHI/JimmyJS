@@ -20,7 +20,8 @@ let JIMMY = {
         mousemove: null,
         undo: null,
         redo: null,
-        clear: null
+        clear: null,
+        selected: null
     },
     mousePositions: {
         start: {x: -1, y: -1},
@@ -941,6 +942,12 @@ let JIMMY = {
 
             JIMMY.selectingIndex = JIMMY.hoveringIndex;
             let drawing = JIMMY.drawings[JIMMY.selectingIndex];
+
+            if(typeof JIMMY.callbacks.selected == 'function') {
+
+                JIMMY.callbacks.selected(drawing);
+
+            }
 
             if(JIMMY.isTextType(drawing.type)) {
 

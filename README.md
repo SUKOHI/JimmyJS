@@ -121,6 +121,11 @@ Set background image.
         
             console.log('clear')
         
+        },
+        selected: function(drawing) {
+        
+            console.log('selected', drawing.type)
+        
         }
     });
     
