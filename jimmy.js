@@ -1207,6 +1207,16 @@ let JIMMY = {
         return (Object.keys(JIMMY.controllerPositions).length > 0);
 
     },
+    hasUndo: function() {
+
+        return (JIMMY.drawings.length > 0);
+
+    },
+    hasRedo: function() {
+
+        return (JIMMY.redoDrawings.length > 0);
+
+    },
     setHoveringIndex: function() {
 
         let mousePoint = JIMMY.mousePositions.end;

@@ -142,12 +142,39 @@ Clear background image.
 
     JIMMY.clearBackgroundImage();
     
-## alignCanvas
+## alignCanvas()
 
 Initialize canvas position.  
 You could use this method when an element moved or element size changed.  
 For example, when you need to call jQuery's animate().
+
+## isSelecting()
+
+Check if a specific drawing is being selected by user.
+
+    if(JIMMY.isSelecting()) {
     
+        // Something..
+    
+    }
+
+## hasUndo(), hasRedo()
+
+Check if undo-drawing or redo-drawing exists.  
+I believe that this method will be used for disabling your button or link. 
+
+    if(JIMMY.hasUndo()) {
+    
+        // Something..
+    
+    }
+    
+    if(JIMMY.hasRedo()) {
+    
+        // Something..
+    
+    }
+
 # License
 This package is licensed under the MIT License.  
 Copyright 2018 Sukohi Kuhoh
