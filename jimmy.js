@@ -18,6 +18,9 @@ let JIMMY = {
         mouseup: null,
         mousedown: null,
         mousemove: null,
+        undo: null,
+        redo: null,
+        clear: null
     },
     mousePositions: {
         start: {x: -1, y: -1},
@@ -623,6 +626,12 @@ let JIMMY = {
 
         JIMMY.clearControllers();
 
+        if(typeof JIMMY.callbacks.undo == 'function') {
+
+            JIMMY.callbacks.undo();
+
+        }
+
     },
     redo: function() {
 
@@ -647,6 +656,12 @@ let JIMMY = {
 
         JIMMY.clearControllers();
 
+        if(typeof JIMMY.callbacks.redo == 'function') {
+
+            JIMMY.callbacks.redo();
+
+        }
+
     },
     refresh: function(which, drawingFlag) {
 
@@ -668,6 +683,12 @@ let JIMMY = {
         JIMMY.redoDrawings = [];
         JIMMY.refresh('fg');
         JIMMY.refresh('bg');
+
+        if(typeof JIMMY.callbacks.clear == 'function') {
+
+            JIMMY.callbacks.clear();
+
+        }
 
     },
     clearRect: function(which) {

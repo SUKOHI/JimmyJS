@@ -106,6 +106,21 @@ Set background image.
 
             console.log('mousemove');
 
+        },
+        undo: function() {
+        
+            console.log('undo')
+        
+        },
+        redo: function() {
+        
+            console.log('redo')
+        
+        },
+        clear: function() {
+        
+            console.log('clear')
+        
         }
     });
     
