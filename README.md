@@ -89,6 +89,26 @@ Set background image.
     let y = 60;
     JIMMY.setBackgroundImage(imageSource, x, y);
     
+## setCallback(callbacks)
+
+    JIMMY.setCallback({
+        mouseup: function() {
+
+            console.log('mouseup');
+
+        },
+        mousedown: function() {
+
+            console.log('mousedown');
+
+        },
+        mousemove: function() {
+
+            console.log('mousemove');
+
+        }
+    });
+    
 ## toDataURL(fileType, quality, callback)
 
 Get Base64 encoding image.

@@ -14,6 +14,11 @@ let JIMMY = {
     redoDrawings: [],
     controllerPositions: {},
     fgDrawing: {},
+    callbacks: {
+        mouseup: null,
+        mousedown: null,
+        mousemove: null,
+    },
     mousePositions: {
         start: {x: -1, y: -1},
         end: {x: -1, y: -1}
@@ -835,6 +840,19 @@ let JIMMY = {
         }
 
     },
+    setCallback: function(callbacks) {
+
+        for(let key in callbacks) {
+
+            if(typeof callbacks[key] == 'function') {
+
+                JIMMY.callbacks[key] = callbacks[key];
+
+            }
+
+        }
+
+    },
     clearControllers: function() {
 
         JIMMY.selectingIndex = -1;
@@ -962,6 +980,12 @@ let JIMMY = {
         JIMMY.mousePositions = {};
         JIMMY.setCursor();
 
+        if(typeof JIMMY.callbacks.mouseup == 'function') {
+
+            JIMMY.callbacks.mouseup();
+
+        }
+
     },
     onMouseDown: function(e) {
 
@@ -1034,6 +1058,12 @@ let JIMMY = {
         }
 
         JIMMY.setCursor();
+
+        if(typeof JIMMY.callbacks.mousedown == 'function') {
+
+            JIMMY.callbacks.mousedown();
+
+        }
 
     },
     onMouseMove: function(e) {
@@ -1124,6 +1154,12 @@ let JIMMY = {
         }
 
         JIMMY.setCursor();
+
+        if(typeof JIMMY.callbacks.mousemove == 'function') {
+
+            JIMMY.callbacks.mousemove();
+
+        }
 
     },
     onTextInput: function() {
