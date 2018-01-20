@@ -518,7 +518,7 @@ let JIMMY = {
 
             if(!JIMMY.isTextType(drawing.type)) {
 
-                JIMMY.addDrawing(JIMMY.selectingIndex, {
+                JIMMY.updateDrawing(JIMMY.selectingIndex, {
                     color: color
                 });
 
@@ -537,7 +537,7 @@ let JIMMY = {
 
             if(!JIMMY.isTextType(drawing.type)) {
 
-                JIMMY.addDrawing(JIMMY.selectingIndex, {
+                JIMMY.updateDrawing(JIMMY.selectingIndex, {
                     lineWidth: lineWidth
                 });
 
@@ -715,7 +715,7 @@ let JIMMY = {
                     y: drawing.positions.end.y + canvas.height
                 }
             };
-            JIMMY.addDrawing(targetIndex, {
+            JIMMY.updateDrawing(targetIndex, {
                 positions: hiddenPositions,
                 correctedPositions: JIMMY.getCorrectedPositions(hiddenPositions)
             });
@@ -986,11 +986,9 @@ let JIMMY = {
         } else if(status == 'editing') {
 
             JIMMY.status = 'selecting';
-            JIMMY.selectingIndex = JIMMY.drawings.length;
             JIMMY.fgDrawing.visible = true;
-            JIMMY.drawings.push(JIMMY.fgDrawing);
+            JIMMY.updateDrawing(JIMMY.selectingIndex, JIMMY.fgDrawing);
             JIMMY.clearRect('fg');
-            JIMMY.draw('bg', JIMMY.fgDrawing);
             JIMMY.setControllerPositions(JIMMY.fgDrawing);
             JIMMY.drawControllers();
 
@@ -1466,7 +1464,14 @@ let JIMMY = {
         return copiedDrawing;
 
     },
-    addDrawing: function(targetIndex, params) {
+    addDrawing: function(drawing) {
+
+        JIMMY.selectingIndex = JIMMY.drawings.length;
+        JIMMY.drawings.push(drawing);
+        JIMMY.refresh('bg', true);
+
+    },
+    updateDrawing: function(targetIndex, params) {
 
         let originalDrawing = JIMMY.drawings[targetIndex];
         let drawing = JIMMY.copyDrawing(targetIndex);
@@ -1478,9 +1483,7 @@ let JIMMY = {
         }
 
         originalDrawing.visible = false;
-        JIMMY.selectingIndex = JIMMY.drawings.length;
-        JIMMY.drawings.push(drawing);
-        JIMMY.refresh('bg', true);
+        JIMMY.addDrawing(drawing);
 
     },
     getCurrentDir: function() {
