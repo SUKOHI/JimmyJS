@@ -606,6 +606,13 @@ let JIMMY = {
     },
     undo: function() {
 
+        if(JIMMY.status == 'typing') {
+
+            JIMMY.endTyping();
+            JIMMY.status = 'typingReady';
+
+        }
+
         let length = JIMMY.drawings.length;
 
         if(length > 0) {
@@ -635,6 +642,13 @@ let JIMMY = {
 
     },
     redo: function() {
+
+        if(JIMMY.status == 'typing') {
+
+            JIMMY.endTyping();
+            JIMMY.status = 'typingReady';
+
+        }
 
         let length = JIMMY.redoDrawings.length;
 
@@ -924,18 +938,10 @@ let JIMMY = {
 
         if(JIMMY.inArray(status, ['drawing', 'dragging'])) {
 
-            if(status == 'dragging') {
-
-                JIMMY.refresh('bg', true);
-
-            }
-
-            JIMMY.hoveringIndex = -1;
-            JIMMY.redoDrawings = [];
             JIMMY.fgDrawing.visible = true;
-            JIMMY.drawings.push(JIMMY.fgDrawing);
+            JIMMY.addDrawing(JIMMY.fgDrawing);
+            JIMMY.hoveringIndex = -1;
             JIMMY.clearRect('fg');
-            JIMMY.draw('bg', JIMMY.fgDrawing);
             JIMMY.clearStatus();
 
         } else if(status == 'draggingReady') {
@@ -1034,7 +1040,9 @@ let JIMMY = {
 
         } else if(status == 'typing') {
 
-            if(JIMMY.text.value != '') {
+            let text = JIMMY.text.value;
+
+            if(text != '') {
 
                 let computedStyle = window.getComputedStyle(JIMMY.textBox, null);
                 let rectWidth = parseInt(computedStyle.getPropertyValue('width'));
@@ -1047,20 +1055,33 @@ let JIMMY = {
                     start: {x: startX, y: startY},
                     end: {x: endX, y: endY}
                 };
-                let drawing = {
-                    type: JIMMY.drawingType,
-                    color: JIMMY.drawingColor,
-                    text: JIMMY.text.value,
-                    positions: positions,
-                    correctedPositions: JIMMY.getCorrectedPositions(positions),
-                    fontSize: JIMMY.fontSize,
-                    fontFamily: JIMMY.fontFamily,
-                    lineWidth: JIMMY.drawingLineWidth,
-                    visible: true
-                };
-                JIMMY.redoDrawings = [];
-                JIMMY.drawings.push(drawing);
-                JIMMY.draw('bg', drawing);
+                let correctedPositions = JIMMY.getCorrectedPositions(positions);
+
+                if(JIMMY.isSelecting()) {
+
+                    JIMMY.updateDrawing(JIMMY.selectingIndex, {
+                        text: text,
+                        positions: positions,
+                        correctedPositions: correctedPositions,
+                        visible: true
+                    });
+
+                } else {
+
+                    let drawing = {
+                        type: JIMMY.drawingType,
+                        color: JIMMY.drawingColor,
+                        text: text,
+                        positions: positions,
+                        correctedPositions: correctedPositions,
+                        fontSize: JIMMY.fontSize,
+                        fontFamily: JIMMY.fontFamily,
+                        lineWidth: JIMMY.drawingLineWidth,
+                        visible: true
+                    };
+                    JIMMY.addDrawing(drawing);
+
+                }
 
             }
 
@@ -1466,6 +1487,7 @@ let JIMMY = {
     },
     addDrawing: function(drawing) {
 
+        JIMMY.redoDrawings = [];
         JIMMY.selectingIndex = JIMMY.drawings.length;
         JIMMY.drawings.push(drawing);
         JIMMY.refresh('bg', true);
