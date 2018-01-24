@@ -1063,6 +1063,9 @@ let JIMMY = {
                         text: text,
                         positions: positions,
                         correctedPositions: correctedPositions,
+                        fontSize: JIMMY.fontSize,
+                        fontFamily: JIMMY.fontFamily,
+                        lineWidth: JIMMY.drawingLineWidth,
                         visible: true
                     });
 
