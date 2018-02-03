@@ -6,7 +6,11 @@ This package is maintained under Google Chrome.
 
 # Preparation
 
-Include `jimmy.js` like so.
+You can install the package through bower.
+
+    bower install jimmyjs
+
+And load `jimmy.js` like so.
 
     <script src="/YOUR-PATH/jimmy/jimmy.js"></script>
     
